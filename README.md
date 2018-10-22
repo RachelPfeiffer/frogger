@@ -4,3 +4,6 @@ This little game is a mimic of the classic arcade game, Frogger. Use the arrow k
 
 ## Getting Started
 Open index.html in your browser to play! Or feel free to open the JS files to enjoy the scintillating code.
+
+## Credits
+Code is based off of Udacity's starter files for the game. 
