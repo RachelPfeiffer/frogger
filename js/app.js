@@ -1,12 +1,13 @@
 // Enemies our player must avoid
 var Enemy = function() {
+//choose arbitrary x location for enemies to start
   const randomX = 10;
+ //choose on of the 3 rows that the enemies may show up on
   const possibleYs = [60, 130, 200];
   const randomYpicker = Math.floor((Math.random() * 3)) ;
   const randomY = possibleYs[randomYpicker];
 
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
+    
     this.sprite = 'images/enemy-bug.png';
     this.x = randomX;
     this.y = randomY;
@@ -20,11 +21,15 @@ Enemy.prototype.update = function(dt) {
   const randomYpicker = Math.floor((Math.random() * 3)) ;
   const randomY = possibleYs[randomYpicker];
   this.x = this.x += this.speed * dt;
+  
+  //When the enemy finishes crossing the board, it chooses a new speed and goes back to the beginning of the board.
   if (this.x > 500) {
     this.x = -100;
     this.speed = (Math.random()*150 + 100);
     this.y = randomY;
   }
+  
+  //If the player is to be found anywhere on the picture of the cockroach, he's out.
   if (Math.abs(player.x - this.x) < 70 && Math.abs(player.y - this.y) < 15) {
   player.x = 200;
   player.y = 370;
@@ -39,9 +44,6 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
 var Player = function() {
   this.sprite = 'images/char-boy.png';
   this.x = 200;
@@ -49,14 +51,15 @@ var Player = function() {
 };
 
 Player.prototype.update = function() {
-  //if player reaches top, reset
+  //if player reaches top, let him jump in the water and show the player a win.
   if (this.y < -20) {
     this.y = -20;
     setTimeout(function() {
       confirm('You Win!');
     },100);
   };
-
+  
+//Don't let sprite leave the top, sides, bottom.
   if (this.x < 0) {
     this.x = 0;
   };
