@@ -7,7 +7,7 @@ var Enemy = function() {
   const randomYpicker = Math.floor((Math.random() * 3)) ;
   const randomY = possibleYs[randomYpicker];
 
-    
+
     this.sprite = 'images/enemy-bug.png';
     this.x = randomX;
     this.y = randomY;
@@ -21,14 +21,14 @@ Enemy.prototype.update = function(dt) {
   const randomYpicker = Math.floor((Math.random() * 3)) ;
   const randomY = possibleYs[randomYpicker];
   this.x = this.x += this.speed * dt;
-  
+
   //When the enemy finishes crossing the board, it chooses a new speed and goes back to the beginning of the board.
   if (this.x > 500) {
     this.x = -100;
     this.speed = (Math.random()*150 + 100);
     this.y = randomY;
   }
-  
+
   //If the player is to be found anywhere on the picture of the cockroach, he's out.
   if (Math.abs(player.x - this.x) < 70 && Math.abs(player.y - this.y) < 15) {
   player.x = 200;
@@ -55,10 +55,24 @@ Player.prototype.update = function() {
   if (this.y < -20) {
     this.y = -20;
     setTimeout(function() {
-      confirm('You Win!');
-    },100);
+      confirm('You Win! Click OK to close this window, then click anywhere to start again!');
+      function restart() {
+        if (player.y<=-20) {
+        player.x = 200;
+        player.y = 370;
+        console.log("new game in progress");
+      } else {
+        document.removeEventListener('keyup', restart);
+        document.removeEventListener('click', restart);
+      };
+    }
+      document.addEventListener('click', restart)
+      document.addEventListener('keyup', restart)
+
+    },50);
+
   };
-  
+
 //Don't let sprite leave the top, sides, bottom.
   if (this.x < 0) {
     this.x = 0;
