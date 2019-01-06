@@ -1,3 +1,4 @@
+
 // Enemies our player must avoid
 var Enemy = function() {
 //choose arbitrary x location for enemies to start
@@ -86,10 +87,12 @@ Player.prototype.update = function() {
     this.y = 370;
   };
 };
+confirm("Use the arrow keys to guide your player to the river! Ready?");
 
 Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
+
 
 Player.prototype.handleInput = function(keydown) {
   if (keydown === 'left') {
