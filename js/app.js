@@ -1,4 +1,11 @@
-
+var Sound = function (src) {
+  this.sound = document.createElement("audio");
+  this.sound.src = src;
+  this.sound.style.display = "none";
+  this.play = function () {
+    this.sound.play();
+  }
+}
 // Enemies our player must avoid
 var Enemy = function() {
 //choose arbitrary x location for enemies to start
@@ -34,6 +41,7 @@ Enemy.prototype.update = function(dt) {
   if (Math.abs(player.x - this.x) < 70 && Math.abs(player.y - this.y) < 15) {
   player.x = 200;
   player.y = 370;
+  splat.play();
 }
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
@@ -56,7 +64,9 @@ Player.prototype.update = function() {
   if (this.y < -20) {
     this.y = -20;
     setTimeout(function() {
+      tada.play();
       confirm('You Win! Click OK to close this window, then click anywhere to start again!');
+      restart();
       function restart() {
         if (player.y<=-20) {
         player.x = 200;
@@ -93,6 +103,9 @@ Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+const splat = new Sound('splat.mp3');
+const tada = new Sound('tada.mp3');
+// THANK YOU MIKE KOENIG FOR THE SOUND EFFECT!
 
 Player.prototype.handleInput = function(keydown) {
   if (keydown === 'left') {
