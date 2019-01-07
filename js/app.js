@@ -3,6 +3,7 @@ var Sound = function (src) {
   this.sound.src = src;
   this.sound.style.display = "none";
   this.play = function () {
+    this.sound.currentTime = 0;
     this.sound.play();
   }
 }
@@ -11,7 +12,7 @@ var Enemy = function() {
 //choose arbitrary x location for enemies to start
   const randomX = 10;
  //choose on of the 3 rows that the enemies may show up on
-  const possibleYs = [60, 130, 200];
+  const possibleYs = [60, 130, 200, 60, 130];
   const randomYpicker = Math.floor((Math.random() * 3)) ;
   const randomY = possibleYs[randomYpicker];
 
@@ -105,17 +106,22 @@ Player.prototype.render = function() {
 
 const splat = new Sound('splat.mp3');
 const tada = new Sound('tada.mp3');
+const jump = new Sound('boing.mp3');
 // THANK YOU MIKE KOENIG FOR THE SOUND EFFECT!
 
 Player.prototype.handleInput = function(keydown) {
   if (keydown === 'left') {
     this.x -= 100;
+    jump.play();
   } else if (keydown === 'right') {
     this.x += 100;
+    jump.play();
   } else if (keydown === 'up') {
     this.y -= 80;
+    jump.play();
   } else if (keydown === 'down') {
     this.y += 80;
+    jump.play();
   }
 }
 // Now instantiate your objects.
