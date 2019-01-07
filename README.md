@@ -8,4 +8,4 @@ Or feel free to open the JS files to enjoy the scintillating code.
 
 ## Credits
 Code is based off of Udacity's starter files for the game. 
-THANK YOU MIKE KOENIG FOR THE TADA SOUND EFFECT!
+Thank you Mike Koenig for the Tada and Boing sound effects!
